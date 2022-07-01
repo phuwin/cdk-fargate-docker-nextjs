@@ -29,12 +29,11 @@ export class CdkStack extends Stack {
     const cluster = new Cluster(this, "MyCluster", {
       vpc: vpc
     });
-
-    // create an image from ../Dockerfile
-    // const image = new DockerImageAsset(this, 'DockerImage', {
-    //   directory: '../',
-    //   exclude: ['cdk', 'cdk.out'],
-    //   ignoreMode: IgnoreMode.DOCKER,
-    // });
+    
+    const image = new DockerImageAsset(this, 'DockerImage', {
+      directory: '../',
+      exclude: ['cdk', 'cdk.out'],
+      ignoreMode: IgnoreMode.DOCKER,
+    });
   }
 }
