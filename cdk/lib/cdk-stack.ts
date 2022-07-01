@@ -40,7 +40,6 @@ export class CdkStack extends Stack {
 
     const fargateService = new ApplicationLoadBalancedFargateService(this, 'FargateService', {
       cluster,
-      vpc,
       cpu: 256,
       memoryLimitMiB: 512,
       taskImageOptions: {
