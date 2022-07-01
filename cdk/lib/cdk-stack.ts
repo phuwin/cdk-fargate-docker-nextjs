@@ -29,12 +29,11 @@ export class CdkStack extends Stack {
       vpc: vpc
     });
 
-    // // create an image from ../Dockerfile
-    // const image = new DockerImageAsset(this, 'DockerImage', {
-    //   directory: '../',
-    //   exclude: ['cdk'],
-    //   ignoreMode: IgnoreMode.DOCKER,
-    // });
-
+    // create an image from ../Dockerfile
+    const image = new DockerImageAsset(this, 'DockerImage', {
+      directory: '../',
+      exclude: ['cdk', 'cdk.out'],
+      ignoreMode: IgnoreMode.DOCKER,
+    });
   }
 }
