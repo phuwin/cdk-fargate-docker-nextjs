@@ -22,5 +22,20 @@ export class CdkStack extends Stack {
       })
     });
 
+    const vpc = new Vpc(this, "MyVpc", {
+      maxAzs: 3 // Default is all AZs in region
+    });
+
+    const cluster = new Cluster(this, "MyCluster", {
+      vpc: vpc
+    });
+
+    // // create an image from ../Dockerfile
+    // const image = new DockerImageAsset(this, 'DockerImage', {
+    //   directory: '../',
+    //   exclude: ['cdk'],
+    //   ignoreMode: IgnoreMode.DOCKER,
+    // });
+
   }
 }
