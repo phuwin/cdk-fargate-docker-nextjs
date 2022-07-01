@@ -18,7 +18,8 @@ export class CdkStack extends Stack {
       synth: new ShellStep('Synth', {
         input: CodePipelineSource.gitHub('phuwin95/cdk-fargate-docker-nextjs', 'main'),
         commands: ['cd cdk', 'npm ci', 'npm run build', 'npx cdk synth', 'mv cdk.out ../'],
-      })
+      }),
+      dockerEnabledForSelfMutation: true,
     });
 
     const vpc = new Vpc(this, "MyVpc", {
@@ -30,10 +31,10 @@ export class CdkStack extends Stack {
     });
 
     // create an image from ../Dockerfile
-    const image = new DockerImageAsset(this, 'DockerImage', {
-      directory: '../',
-      exclude: ['cdk', 'cdk.out'],
-      ignoreMode: IgnoreMode.DOCKER,
-    });
+    // const image = new DockerImageAsset(this, 'DockerImage', {
+    //   directory: '../',
+    //   exclude: ['cdk', 'cdk.out'],
+    //   ignoreMode: IgnoreMode.DOCKER,
+    // });
   }
 }
