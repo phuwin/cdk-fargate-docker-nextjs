@@ -29,11 +29,27 @@ export class CdkStack extends Stack {
     const cluster = new Cluster(this, "MyCluster", {
       vpc: vpc
     });
-    
-    const image = new DockerImageAsset(this, 'DockerImage', {
+
+    const asset = new DockerImageAsset(this, 'DockerImage', {
       directory: '../',
       exclude: ['cdk', 'cdk.out'],
       ignoreMode: IgnoreMode.DOCKER,
     });
+
+    const image =  ContainerImage.fromDockerImageAsset(asset);
+
+    const fargateService = new ApplicationLoadBalancedFargateService(this, 'FargateService', {
+      cluster,
+      vpc,
+      cpu: 256,
+      memoryLimitMiB: 512,
+      taskImageOptions: {
+        image,
+      },
+      publicLoadBalancer: true,
+      minHealthyPercent: 100,
+      maxHealthyPercent: 200,
+    });
+
   }
 }
