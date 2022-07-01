@@ -1,5 +1,5 @@
 import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { IgnoreMode, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
 
@@ -33,6 +33,8 @@ export class CdkStack extends Stack {
     // create an image from ../Dockerfile
     const image = new DockerImageAsset(this, 'DockerImage', {
       directory: '../',
+      exclude: ['cdk.out', 'cdk'],
+      ignoreMode: IgnoreMode.DOCKER,
     });
 
     // Create a load-balanced Fargate service and make it public
